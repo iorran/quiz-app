@@ -1,23 +1,22 @@
-import { Button } from '@material-ui/core';
-import { api } from './services/api';
-import Quiz from './pages/quiz'
-
-import { useState } from 'react';
+import { Home } from './pages/home'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Quiz } from './pages/quiz';
 
 function App() {
-  const [questions, setQuestions] = useState<any>([]);
-
-  async function getQuestions() {
-    const response = await api.get('?amount=10');
-    console.log(response);
-    setQuestions(response.data.results);
-  }
 
   return (
-    <div>
-      <Quiz questions={questions} />
-      <Button onClick={getQuestions} color="primary">Hello World</Button>
-    </div>
+    <Router>
+      {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+      <Switch>
+        <Route path="/quiz">
+          <Quiz />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
